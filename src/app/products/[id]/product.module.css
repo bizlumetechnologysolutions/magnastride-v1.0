@@ -1,0 +1,141 @@
+.productPage {
+    min-height: calc(100vh - 80px);
+}
+
+.heroBanner {
+    background-color: var(--bg-soft-grey);
+    padding: 6rem 0;
+    color: var(--text-dark);
+    border-bottom: 1px solid var(--support-color);
+}
+
+.productTitle {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.productSubtitle {
+    font-size: 1.2rem;
+    color: var(--text-dark);
+    max-width: 600px;
+}
+
+.advantageList {
+    margin-top: 1.5rem;
+}
+
+.advantageList li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1rem;
+    font-size: 1.05rem;
+    color: #333;
+}
+
+.appsGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.appBadge {
+    background-color: var(--bg-off-white);
+    border: 1px solid var(--support-color);
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-dark);
+    font-weight: 500;
+}
+
+.specBox {
+    background-color: transparent;
+    border: 1px solid var(--support-color);
+    border-radius: var(--border-radius);
+    margin-bottom: 2rem;
+    overflow: hidden;
+}
+
+.specTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.specTable th,
+.specTable td {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--support-color);
+    /* Steel grey grid lines */
+    color: var(--text-dark);
+    text-align: left;
+}
+
+.specTable tr:last-child th,
+.specTable tr:last-child td {
+    border-bottom: none;
+}
+
+.specTable th {
+    font-weight: 600;
+    width: 40%;
+    background-color: var(--secondary-color);
+    /* Graphite header background */
+    color: #fff;
+    border-left: 3px solid var(--accent-color);
+    /* Copper left accent border */
+}
+
+.actionBox {
+    background: var(--bg-off-white);
+    border: 1px solid var(--support-color);
+    padding: 2.5rem;
+    border-radius: var(--border-radius);
+}
+
+@media (max-width: 900px) {
+    .productTitle {
+        font-size: 2.2rem;
+        word-wrap: break-word;
+        letter-spacing: -0.5px;
+        line-height: 1.15;
+    }
+
+    .heroBanner {
+        padding: 8rem 0 4rem;
+    }
+
+    .specBox {
+        overflow-x: auto;
+    }
+
+    .specTable th,
+    .specTable td {
+        padding: 0.8rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+.dataBarContainer {
+    width: 100%;
+    background-color: rgba(176, 190, 197, 0.3);
+    /* Steel grey with opacity */
+    height: 6px;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: 8px;
+}
+
+.dataBarFill {
+    height: 100%;
+    background-color: var(--accent-color);
+    width: 0%;
+    /* Will be animated */
+    border-radius: 3px;
+}
