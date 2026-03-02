@@ -84,9 +84,9 @@ export default function AboutPage() {
         <div ref={container}>
             {/* Hero Section */}
             <section className={styles.aboutHero}>
-                <div className={`${styles.heroContent} fade-up-section`}>
+                <div className={`${styles.heroContent} fade-up-section text-center`}>
                     <h1 className={styles.heroTitle}>About Magnastride</h1>
-                    <p style={{ fontSize: "1.2rem", color: "var(--text-dark)", lineHeight: 1.8 }}>
+                    <p style={{ fontSize: "1.2rem", color: "rgba(255,255,255,0.9)", lineHeight: 1.8, maxWidth: "700px", margin: "0 auto" }}>
                         Pioneering advanced electromagnetic solutions and high-precision automation components for global industries.
                     </p>
                 </div>
@@ -159,7 +159,8 @@ export default function AboutPage() {
             </section>
 
             {/* Research & Innovation Section */}
-            <section className={styles.researchSection}>
+            <section className={`${styles.researchSection} bg-dark-refined`}>
+                <div className="faint-bg-text" style={{ top: "15%", left: "50%", transform: "translateX(-50%)" }}>INNOVATION</div>
                 <div className="container relative z-10">
                     <div className="text-center fade-up-section">
                         <h2 className="section-title center">Research & Innovation</h2>
@@ -169,30 +170,30 @@ export default function AboutPage() {
                     </div>
 
                     {/* Stats Bar */}
-                    <div ref={statsRef} className="grid grid-4 stagger-grid" style={{ marginBottom: "5rem", textAlign: "center", borderBottom: "1px solid var(--support-color)", paddingBottom: "3rem" }}>
+                    <div ref={statsRef} className="grid grid-4 stagger-grid" style={{ marginBottom: "5rem", textAlign: "center", borderBottom: "1px solid rgba(255,255,255,0.1)", paddingBottom: "3rem" }}>
                         <div>
                             <div style={{ fontSize: "3rem", fontWeight: 800, color: "var(--accent-color)" }}>
                                 {statsInView ? <CountUp end={100} duration={2.5} /> : "0"}<span>%</span>
                             </div>
-                            <div style={{ color: "var(--text-dark)", fontSize: "0.9rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "1px" }}>In-House Design</div>
+                            <div style={{ color: "#ffffff", fontSize: "0.9rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "1px" }}>In-House Design</div>
                         </div>
                         <div>
                             <div style={{ fontSize: "3rem", fontWeight: 800, color: "var(--accent-color)" }}>
                                 {statsInView ? <CountUp end={5} duration={2.5} /> : "0"}<span>M+</span>
                             </div>
-                            <div style={{ color: "var(--text-dark)", fontSize: "0.9rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "1px" }}>Cycle Lifespans</div>
+                            <div style={{ color: "#ffffff", fontSize: "0.9rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "1px" }}>Cycle Lifespans</div>
                         </div>
                         <div>
                             <div style={{ fontSize: "3rem", fontWeight: 800, color: "var(--accent-color)" }}>
                                 {statsInView ? <CountUp end={94} duration={2.5} /> : "0"}<span>%</span>
                             </div>
-                            <div style={{ color: "var(--text-dark)", fontSize: "0.9rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "1px" }}>Max Efficiency</div>
+                            <div style={{ color: "#ffffff", fontSize: "0.9rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "1px" }}>Max Efficiency</div>
                         </div>
                         <div>
                             <div style={{ fontSize: "3rem", fontWeight: 800, color: "var(--accent-color)" }}>
                                 {statsInView ? <CountUp end={48} duration={2.5} /> : "0"}<span>hrs</span>
                             </div>
-                            <div style={{ color: "var(--text-dark)", fontSize: "0.9rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "1px" }}>Rapid Prototyping</div>
+                            <div style={{ color: "#ffffff", fontSize: "0.9rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "1px" }}>Rapid Prototyping</div>
                         </div>
                     </div>
 

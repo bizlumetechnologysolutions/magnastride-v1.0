@@ -1,6 +1,8 @@
 :root {
   --primary-color: #0F1E33;
   /* Deep Navy */
+  --primary-darker: #0C182A;
+  /* Darker Navy for gradients */
   --secondary-color: #2C2F33;
   /* Dark Graphite */
   --accent-color: #C46A2D;
@@ -15,7 +17,8 @@
   --text-light: #ffffff;
   --text-muted: #546E7A;
   /* Darker muted text for light backgrounds */
-  --font-family: 'Inter', sans-serif;
+  --font-body: 'Exo 2', sans-serif;
+  --font-heading: 'Rajdhani', sans-serif;
   --border-radius: 0px;
   /* Strict engineered look */
   --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -38,7 +41,7 @@ body {
 }
 
 body {
-  font-family: var(--font-family);
+  font-family: var(--font-body);
   color: var(--text-dark);
   background-color: var(--bg-light);
   line-height: 1.6;
@@ -61,7 +64,8 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: 700;
+  font-family: var(--font-heading);
+  font-weight: 600;
   color: var(--primary-color);
   margin-bottom: 1.5rem;
   letter-spacing: -0.02em;
@@ -123,9 +127,11 @@ main {
   justify-content: center;
   padding: 0.875rem 1.75rem;
   border-radius: 6px;
+  font-family: var(--font-heading);
+  text-transform: uppercase;
   font-weight: 600;
-  font-size: 1rem;
-  letter-spacing: 0.01em;
+  font-size: 1.05rem;
+  letter-spacing: 0.05em;
   border: 1px solid transparent;
   cursor: pointer;
   transition: var(--transition);
@@ -218,17 +224,19 @@ main {
 
 /* Section Styling */
 .section {
-  padding: 6rem 0;
+  padding: 10rem 0;
   position: relative;
-  border-bottom: 1px solid var(--support-color);
+  border-top: 1px solid rgba(176, 190, 197, 0.2);
+  border-bottom: 1px solid rgba(176, 190, 197, 0.2);
 }
 
 /* Even lighter background for structural separation */
 .section-alt {
-  padding: 6rem 0;
+  padding: 10rem 0;
   position: relative;
   background-color: var(--bg-off-white);
-  border-bottom: 1px solid var(--support-color);
+  border-top: 1px solid rgba(176, 190, 197, 0.2);
+  border-bottom: 1px solid rgba(176, 190, 197, 0.2);
 }
 
 /* Optional brushed metal texture overlay for dark sections */
@@ -293,17 +301,113 @@ main {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.5) 0%, transparent 50%);
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
   pointer-events: none;
   z-index: 0;
-  /* Under content */
+}
+
+/* Refined Dark Section Background */
+.bg-dark-refined {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-darker) 100%);
+  position: relative;
+  overflow: hidden;
+  color: #ffffff;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.15);
+}
+
+.bg-dark-refined::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    linear-gradient(rgba(176, 190, 197, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(176, 190, 197, 0.05) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Refined Dark Section Contrast Logic */
+.bg-dark-refined {
+  color: #ffffff;
+}
+
+/* Primary section headers and subtitles on dark backgrounds should always be white */
+.bg-dark-refined .section-title,
+.bg-dark-refined .section-subtitle {
+  color: #ffffff !important;
+}
+
+/* Ensure the accent line under title is visible on dark backgrounds */
+.bg-dark-refined .section-title::after {
+  background-color: var(--accent-color);
+}
+
+/* Base text elements in dark sections should be white by default, 
+   but this should be overridden by nested cards/containers */
+.bg-dark-refined h1,
+.bg-dark-refined h2,
+.bg-dark-refined h3,
+.bg-dark-refined h4,
+.bg-dark-refined p {
+  color: #ffffff;
+}
+
+/* But text strictly inside cards must be dark again */
+.bg-dark-refined [class*="card" i] h1,
+.bg-dark-refined [class*="card" i] h2,
+.bg-dark-refined [class*="card" i] h3,
+.bg-dark-refined [class*="card" i] h4,
+.bg-dark-refined [class*="card" i] p,
+.bg-dark-refined [class*="box" i] h1,
+.bg-dark-refined [class*="box" i] h2,
+.bg-dark-refined [class*="box" i] h3,
+.bg-dark-refined [class*="box" i] h4,
+.bg-dark-refined [class*="box" i] p {
+  color: var(--text-dark);
+}
+
+.bg-dark-refined .text-muted {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Prevent muted text from turning white if it's inside a card */
+.bg-dark-refined [class*="card" i] .text-muted,
+.bg-dark-refined [class*="box" i] .text-muted {
+  color: var(--text-muted);
+}
+
+/* Faint Background Typography */
+.faint-bg-text {
+  position: absolute;
+  font-size: 15vw;
+  font-weight: 900;
+  color: var(--primary-color);
+  opacity: 0.03;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 0;
+  user-select: none;
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+
+.bg-dark-refined .faint-bg-text {
+  color: #ffffff;
+  opacity: 0.02;
 }
 
 .section-title {
-  font-size: 2.75rem;
-  margin-bottom: 1.5rem;
+  font-size: 3.25rem;
+  margin-bottom: 2rem;
   position: relative;
   display: inline-block;
+  letter-spacing: -0.02em;
 }
 
 .section-title::after {
@@ -342,7 +446,6 @@ main {
   text-align: center;
 }
 
-/* Base Card Structural Styling (Flat Engineering OEM) */
 .oem-card {
   background: #ffffff;
   border: 1px solid var(--support-color);
@@ -353,12 +456,24 @@ main {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  color: var(--text-dark);
+  box-shadow: 0 4px 20px rgba(15, 30, 51, 0.03), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
 }
 
 .oem-card:hover {
   background-color: var(--bg-soft-grey);
   border-color: var(--primary-color);
   transform: none;
+}
+
+.section-divider {
+  height: 1px;
+  background-color: rgba(176, 190, 197, 0.2);
+  width: 100%;
+}
+
+.bg-dark-refined .section-divider {
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
 /* Grid Layouts */
@@ -494,12 +609,18 @@ main {
 }
 
 .logo {
+  font-family: var(--font-heading);
   font-size: 1.7rem;
-  font-weight: 800;
-  color: var(--primary-color);
+  font-weight: 700;
+  color: #ffffff;
   letter-spacing: -0.5px;
   display: flex;
   align-items: center;
+  transition: color 0.3s ease;
+}
+
+.header.scrolled .logo {
+  color: var(--primary-color);
 }
 
 .logo span {
@@ -513,16 +634,28 @@ main {
 }
 
 .nav-link {
+  font-family: var(--font-heading);
   font-weight: 600;
-  color: var(--text-dark);
-  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+  text-transform: uppercase;
   position: relative;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.05em;
   padding: 0.5rem 0;
+  transition: color 0.3s ease;
+}
+
+.header.scrolled .nav-link {
+  color: var(--text-dark);
 }
 
 .nav-link:hover,
 .nav-link.active {
+  color: #ffffff;
+}
+
+.header.scrolled .nav-link:hover,
+.header.scrolled .nav-link.active {
   color: var(--primary-color);
 }
 
@@ -547,8 +680,13 @@ main {
   background: none;
   border: none;
   font-size: 1.5rem;
-  color: var(--primary-color);
+  color: #ffffff;
   cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.header.scrolled .mobile-menu-btn {
+  color: var(--primary-color);
 }
 
 @media (max-width: 768px) {
@@ -564,6 +702,15 @@ main {
     gap: 1.5rem;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     border-top: 1px solid rgba(15, 30, 51, 0.05);
+  }
+
+  .nav-link {
+    color: var(--text-dark);
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    color: var(--primary-color);
   }
 
   .nav.active {

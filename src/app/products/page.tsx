@@ -3,10 +3,11 @@ import { Zap, ShieldCheck, Activity, Power, Battery, Settings, Download } from "
 
 export default function ProductsPage() {
     return (
-        <div className="section" style={{ minHeight: "80vh", backgroundColor: "var(--bg-soft-grey)", paddingTop: "8rem" }}>
-            <div className="container">
-                <h1 className="section-title center">Engineered Solutions</h1>
-                <p className="section-subtitle center">Precision components built for industrial strength and reliability.</p>
+        <div className="section bg-dark-refined" style={{ minHeight: "80vh", paddingTop: "10rem" }}>
+            <div className="faint-bg-text" style={{ top: "10%", right: "0" }}>ENGINEERING</div>
+            <div className="container" style={{ position: "relative", zIndex: 10 }}>
+                <h1 className="section-title center" style={{ color: "#ffffff" }}>Engineered Solutions</h1>
+                <p className="section-subtitle center" style={{ color: "rgba(255,255,255,0.8)" }}>Precision components built for industrial strength and reliability.</p>
 
                 <div className="grid grid-3" style={{ marginTop: "3rem" }}>
                     {/* Solenoids */}

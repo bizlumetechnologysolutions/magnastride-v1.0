@@ -5,7 +5,7 @@ import styles from "./page.module.css";
 import {
   ArrowRight, Download, Mail, Zap, Target, Award, Cpu,
   Factory, ShieldCheck, Battery, Power, CircleDot, Activity, Settings, Settings2,
-  ChevronDown, BookOpen
+  ChevronDown, BookOpen, CheckCircle2, Phone
 } from "lucide-react";
 import CountUp from "react-countup";
 import { useInView } from "react-intersection-observer";
@@ -39,6 +39,15 @@ export default function Home() {
         duration: 40,
         repeat: -1,
         ease: "linear"
+      });
+
+      // Subtle electromagnetic pulse
+      gsap.to(".hero-pulse-anim", {
+        backgroundColor: "rgba(12, 24, 42, 0.6)",
+        duration: 4,
+        yoyo: true,
+        repeat: -1,
+        ease: "sine.inOut"
       });
 
       // Hero Timeline
@@ -99,6 +108,23 @@ export default function Home() {
           },
         });
       });
+
+      // Line expansion on scroll for dividers
+      gsap.utils.toArray(".section-divider").forEach((divider: any) => {
+        gsap.fromTo(divider,
+          { scaleX: 0 },
+          {
+            scrollTrigger: {
+              trigger: divider,
+              start: "top 95%",
+            },
+            scaleX: 1,
+            duration: 1.5,
+            ease: "power2.out",
+            transformOrigin: "left center"
+          }
+        );
+      });
     });
 
     mm.add("(max-width: 767px)", () => {
@@ -151,23 +177,22 @@ export default function Home() {
   return (
     <div ref={container}>
       {/* Hero Section */}
-      <section className={styles.hero} style={{ position: 'relative' }}>
+      <section className={styles.hero} style={{ position: 'relative', overflow: 'hidden' }}>
         <div className="bg-radial-precision"></div>
+        <div className={`${styles.heroOverlay} hero-pulse-anim`}></div>
 
-        <HeroMotorScene />
-
-        <div className={styles.heroContent} style={{ position: 'relative', zIndex: 10, pointerEvents: 'none' }}>
-          <span className={`${styles.heroTag} hero-content-anim`}>Industrial OEM Manufacturer</span>
-          <h1 className={`${styles.heroTitle} hero-content-anim`} style={{ pointerEvents: 'auto' }}>Precision Electromagnetic Solutions</h1>
-          <p className={`${styles.heroSubtitle} hero-content-anim`} style={{ pointerEvents: 'auto' }}>
-            Innovative Solenoids, Holding Magnets, Actuators & BLDC Systems Designed for Industrial Automation and Performance.
+        <div className={styles.heroContent} style={{ position: 'relative', zIndex: 10 }}>
+          <span className={`${styles.heroTag} hero-content-anim`}>Industrial OEM Excellence</span>
+          <h1 className={`${styles.heroTitle} hero-content-anim`}>Engineered for Extreme Reliability</h1>
+          <p className={`${styles.heroSubtitle} hero-content-anim`}>
+            High-Performance Electromagnetic Brakes, Precision Solenoids, and Actuators Built for Mission-Critical Industrial Systems.
           </p>
-          <div className={`${styles.heroButtons} hero-content-anim`} style={{ pointerEvents: 'auto' }}>
-            <Link href="#products" className="btn btn-primary">
-              View Products
+          <div className={`${styles.heroButtons} hero-content-anim`}>
+            <Link href="#products" className="btn btn-primary" style={{ padding: '1rem 2rem', fontSize: '1.05rem', fontWeight: 'bold' }}>
+              Explore Products
             </Link>
-            <Link href="#contact" className="btn btn-outline" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              Request a Quote <ArrowRight size={18} />
+            <Link href="#contact" className={`btn ${styles.btnOutlineLight}`} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '1rem 2rem', fontSize: '1.05rem', fontWeight: 'bold' }}>
+              Talk to Engineering Team <ArrowRight size={18} />
             </Link>
           </div>
         </div>
@@ -195,9 +220,11 @@ export default function Home() {
           <p>Join a robust team or learn about our patented rapid-response technologies.</p>
         </Link>
       </div>
+      <div className="section-divider"></div>
 
       {/* About Highlights */}
-      <section id="about" className={`section bg-soft-gradient`}>
+      <section id="about" className={`section bg-off-white`}>
+        <div className="faint-bg-text" style={{ top: "10%", right: "-5%" }}>ENGINEERING</div>
         <div className="container" style={{ position: "relative", zIndex: 2 }}>
           <div className="text-center fade-up-section" style={{ maxWidth: "800px", margin: "0 auto" }}>
             <h2 className="section-title">Engineered for Excellence</h2>
@@ -258,126 +285,127 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <div className="section-divider"></div>
 
-      {/* Products Section */}
-      <section id="products" className={`${styles.productsSection} bg-soft-gradient`}>
+      {/* 3.5 Featured Product Spotlight */}
+      <section className="section bg-soft-gradient">
         <div className="container">
-          <div className="fade-up-section">
-            <h2 className="section-title center">Engineered Products</h2>
-            <p className="section-subtitle center">High-performance custom magnetic components engineered to perfection for dynamic and diverse industrial applications.</p>
-          </div>
-
-          <div className={styles.solutionsContainer}>
-            <div
-              className={styles.solutionsGrid}
-              id="solutions-scroll"
-              onScroll={(e) => {
-                const element = e.currentTarget;
-                const index = Math.round(element.scrollLeft / (element.offsetWidth * 0.85));
-                const dots = document.querySelectorAll(`.${styles.scrollDot}`);
-                dots.forEach((dot, i) => {
-                  if (i === index) dot.classList.add(styles.activeDot);
-                  else dot.classList.remove(styles.activeDot);
-                });
-              }}
-            >
-              {/* Product 1 */}
-              <div className={`${styles.productCard} product-card-anim`}>
-                <div className={styles.productHeader}>
-                  <Zap size={36} className={styles.productIcon} />
-                  <h3>Solenoids (Linear)</h3>
-                </div>
-                <ul className={styles.productFeatures}>
-                  <li><CircleDot size={18} className="text-secondary" /> <strong>Voltage:</strong> 12V / 24V / 48V DC</li>
-                  <li><CircleDot size={18} className="text-secondary" /> <strong>Duty Cycle:</strong> 10% - 100% ED</li>
-                  <li><CircleDot size={18} className="text-secondary" /> <strong>Apps:</strong> Sorting, Automation</li>
-                </ul>
-                <div className={styles.productActions}>
-                  <Link href="/products/solenoids" className="btn btn-primary">View Details</Link>
-                  <button className="btn btn-outline-primary"><Download size={18} style={{ marginRight: '8px' }} /> Datasheet</button>
-                </div>
-              </div>
-
-              {/* Product 2 */}
-              <div className={`${styles.productCard} product-card-anim`}>
-                <div className={styles.productHeader}>
-                  <ShieldCheck size={36} className={styles.productIcon} />
-                  <h3>Holding Magnets</h3>
-                </div>
-                <ul className={styles.productFeatures}>
-                  <li><CircleDot size={18} className="text-secondary" /> <strong>Voltage:</strong> 12V / 24V DC</li>
-                  <li><CircleDot size={18} className="text-secondary" /> <strong>Duty Cycle:</strong> 100% ED</li>
-                  <li><CircleDot size={18} className="text-secondary" /> <strong>Apps:</strong> Security, Fire doors</li>
-                </ul>
-                <div className={styles.productActions}>
-                  <Link href="/products/holding-magnets" className="btn btn-primary">View Details</Link>
-                  <button className="btn btn-outline-primary"><Download size={18} style={{ marginRight: '8px' }} /> Datasheet</button>
-                </div>
-              </div>
-
-              {/* Product 3 */}
-              <div className={`${styles.productCard} product-card-anim`}>
-                <div className={styles.productHeader}>
-                  <Settings size={36} className={styles.productIcon} />
-                  <h3>Rotary Actuators</h3>
-                </div>
-                <ul className={styles.productFeatures}>
-                  <li><CircleDot size={18} className="text-secondary" /> <strong>Voltage:</strong> Custom Build</li>
-                  <li><CircleDot size={18} className="text-secondary" /> <strong>Duty Cycle:</strong> Intermittent</li>
-                  <li><CircleDot size={18} className="text-secondary" /> <strong>Apps:</strong> Sorting gates, Textile</li>
-                </ul>
-                <div className={styles.productActions}>
-                  <Link href="/products/rotary-actuators" className="btn btn-primary">View Details</Link>
-                  <button className="btn btn-outline-primary"><Download size={18} style={{ marginRight: '8px' }} /> Datasheet</button>
-                </div>
-              </div>
-
-              {/* Product 4 */}
-              <div className={`${styles.productCard} product-card-anim`}>
-                <div className={styles.productHeader}>
-                  <Activity size={36} className={styles.productIcon} />
-                  <h3>Voice Coil Systems</h3>
-                </div>
-                <ul className={styles.productFeatures}>
-                  <li><CircleDot size={18} className="text-secondary" /> <strong>Precision:</strong> Micron-level control</li>
-                  <li><CircleDot size={18} className="text-secondary" /> <strong>Speed:</strong> High frequency</li>
-                  <li><CircleDot size={18} className="text-secondary" /> <strong>Apps:</strong> Medical, Optics</li>
-                </ul>
-                <div className={styles.productActions}>
-                  <Link href="/products/voice-coil-systems" className="btn btn-primary">View Details</Link>
-                  <button className="btn btn-outline-primary"><Download size={18} style={{ marginRight: '8px' }} /> Datasheet</button>
-                </div>
-              </div>
-
-              {/* Product 5 */}
-              <div className={`${styles.productCard} product-card-anim`}>
-                <div className={styles.productHeader}>
-                  <Power size={36} className={styles.productIcon} />
-                  <h3>BLDC Motors</h3>
-                </div>
-                <ul className={styles.productFeatures}>
-                  <li><CircleDot size={18} className="text-secondary" /> <strong>Voltage:</strong> 24V - 72V DC</li>
-                  <li><CircleDot size={18} className="text-secondary" /> <strong>Efficiency:</strong> &gt; 90% Peak</li>
-                  <li><CircleDot size={18} className="text-secondary" /> <strong>Apps:</strong> EV, Powertrains</li>
-                </ul>
-                <div className={styles.productActions}>
-                  <Link href="/products/bldc-motors" className="btn btn-primary">View Details</Link>
-                  <button className="btn btn-outline-primary"><Download size={18} style={{ marginRight: '8px' }} /> Datasheet</button>
-                </div>
-              </div>
+          <div className={`fade-up-section ${styles.spotlightContainer}`}>
+            <div className={styles.spotlightImage}>
+              <img src="https://images.unsplash.com/photo-1580983546522-68e178120b08?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="High-Speed Linear Actuator" />
+              <div className={styles.spotlightBadge}>Featured Innovation</div>
             </div>
-
-            <div className={styles.scrollDots}>
-              {[0, 1, 2, 3, 4].map((i) => (
-                <div key={i} className={`${styles.scrollDot} ${i === 0 ? styles.activeDot : ""}`} />
-              ))}
+            <div className={styles.spotlightContent}>
+              <h2 className="section-title" style={{ fontSize: "2.5rem" }}>High-Speed Linear Actuator Pro</h2>
+              <p className="section-subtitle" style={{ marginBottom: "2rem" }}>
+                Engineered for extreme cycle times with 30% less heat generation. Designed to seamlessly integrate into rapid sorting applications with precision force output.
+              </p>
+              <ul className={styles.spotlightSpecs}>
+                <li><strong>Force Output:</strong> 120N to 800N</li>
+                <li><strong>Duty Cycle:</strong> 100% Continuous</li>
+                <li><strong>Life:</strong> 10+ Million Cycles</li>
+              </ul>
+              <div style={{ marginTop: "2rem", display: "flex", gap: "1rem" }}>
+                <Link href="/contact" className="btn btn-primary">
+                  <Download size={20} style={{ marginRight: "10px" }} /> Download Technical Datasheet
+                </Link>
+              </div>
             </div>
           </div>
         </div>
       </section>
+      <div className="section-divider"></div>
+
+
+      < section id="products" className={`${styles.productsSection} bg-dark-refined`} >
+        <div className="faint-bg-text" style={{ bottom: "10%", left: "-5%" }}>PRECISION</div>
+        <div className="container" style={{ position: "relative", zIndex: 10 }}>
+          <div className="fade-up-section" style={{ maxWidth: '800px', margin: '0 auto 4rem auto', textAlign: 'center' }}>
+            <h2 className="section-title">Engineered Products</h2>
+            <p className="section-subtitle">
+              High-performance precision magnetic components crafted for maximum durability and unyielding reliability in dynamic industrial applications.
+            </p>
+          </div>
+
+          <div className={`${styles.categoryGrid}`}>
+            {/* 1. Linear Solenoids */}
+            <Link href="/products/solenoids" className={`${styles.categoryCard} product-card-anim`}>
+              <div className={styles.categoryImage}>
+                <img src="https://images.unsplash.com/photo-1528698827591-e19ccd7bc23d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Linear Solenoids" loading="lazy" />
+              </div>
+              <div className={styles.categoryContent}>
+                <h3>Linear Solenoids</h3>
+                <p>High-performance linear actuation engineered for rapid sorting, automation, and dispensing.</p>
+                <div className={styles.learnMore}>Learn More <ArrowRight size={18} /></div>
+              </div>
+            </Link>
+
+            {/* 2. Holding Magnets */}
+            <Link href="/products/holding-magnets" className={`${styles.categoryCard} product-card-anim`}>
+              <div className={styles.categoryImage}>
+                <img src="https://images.unsplash.com/photo-1504917595217-d4f50060cb05?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Holding Magnets" loading="lazy" />
+              </div>
+              <div className={styles.categoryContent}>
+                <h3>Holding Magnets</h3>
+                <p>Industrial-grade locking mechanisms designed for maximum holding force and absolute security.</p>
+                <div className={styles.learnMore}>Learn More <ArrowRight size={18} /></div>
+              </div>
+            </Link>
+
+            {/* 3. Rotary Actuators */}
+            <Link href="/products/rotary-actuators" className={`${styles.categoryCard} product-card-anim`}>
+              <div className={styles.categoryImage}>
+                <img src="https://images.unsplash.com/photo-1611078440570-381c81881765?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Rotary Actuators" loading="lazy" />
+              </div>
+              <div className={styles.categoryContent}>
+                <h3>Rotary Actuators</h3>
+                <p>Precision bi-directional rotary control built exclusively to endure continuous heavy-duty industrial execution.</p>
+                <div className={styles.learnMore}>Learn More <ArrowRight size={18} /></div>
+              </div>
+            </Link>
+
+            {/* 4. Voice Coil Systems */}
+            <Link href="/products/voice-coil-systems" className={`${styles.categoryCard} product-card-anim`}>
+              <div className={styles.categoryImage}>
+                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Voice Coil Systems" loading="lazy" />
+              </div>
+              <div className={styles.categoryContent}>
+                <h3>Voice Coil Systems</h3>
+                <p>Micron-level manipulation paired with frictionless acceleration for advanced medical and optical deployments.</p>
+                <div className={styles.learnMore}>Learn More <ArrowRight size={18} /></div>
+              </div>
+            </Link>
+
+            {/* 5. BLDC Motors */}
+            <Link href="/products/bldc-motors" className={`${styles.categoryCard} product-card-anim`}>
+              <div className={styles.categoryImage}>
+                <img src="https://images.unsplash.com/photo-1635308693740-9a25b16e456c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="BLDC Motors" loading="lazy" />
+              </div>
+              <div className={styles.categoryContent}>
+                <h3>BLDC Motors</h3>
+                <p>Hyper-efficient, heavy-duty brushless powertrains enabling the future of robotics and electric mobility.</p>
+                <div className={styles.learnMore}>Learn More <ArrowRight size={18} /></div>
+              </div>
+            </Link>
+
+            {/* 6. Custom Prototyping */}
+            <Link href="/products/li-ion-battery-packs" className={`${styles.categoryCard} product-card-anim`}>
+              <div className={styles.categoryImage}>
+                <img src="https://images.unsplash.com/photo-1504312151625-1e4e6113b246?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Li-Ion Battery Packs" loading="lazy" />
+              </div>
+              <div className={styles.categoryContent}>
+                <h3>Li-Ion Battery Packs</h3>
+                <p>Custom engineered battery management systems perfectly tailored for demanding OEM energy storage.</p>
+                <div className={styles.learnMore}>Learn More <ArrowRight size={18} /></div>
+              </div>
+            </Link>
+          </div>
+        </div>
+      </section >
 
       {/* Trade Fair / Event Teaser Section */}
-      <section className={`${styles.eventSection} bg-soft-gradient`}>
+      < section className={`${styles.eventSection} bg-off-white`
+      }>
         <div className="container">
           <div className={`${styles.eventContainer} fade-up-section`}>
             <div>
@@ -395,49 +423,207 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section >
 
-      {/* Industries section */}
-      <section id="industries" className={styles.industriesSection}>
-        <div className={styles.industrialLabBg + " parallax-bg"}></div>
+      {/* 4. Industry Applications section */}
+      < section id="applications" className={`${styles.applicationsSection} bg-soft-grey`} >
+        <div className="faint-bg-text" style={{ top: "20%", right: "-10%" }}>SOLUTIONS</div>
         <div className="container relative z-10">
-          <div className="fade-up-section">
-            <h2 className="section-title center">Industries We Serve</h2>
+          <div className="fade-up-section text-center" style={{ maxWidth: "800px", margin: "0 auto 4rem auto" }}>
+            <h2 className="section-title">Industrial Applications</h2>
             <p className="section-subtitle center">
-              Providing highly reliable magnetic control solutions adapted to unique sectoral challenges.
+              Providing highly reliable magnetic control solutions adapted to unique sectoral challenges. Build your mission-critical systems with confidence.
             </p>
           </div>
 
-          <div
-            className={`${styles.industriesGrid} fade-up-section`}
-            style={{ marginTop: "4rem" }}
-          >
-            <div className={styles.industryCard}>
-              <Factory size={56} className={styles.industryIcon} />
-              <h3>Industrial Automation</h3>
-              <p>Clamping & Sorting lines</p>
+          <div className={`${styles.applicationsGrid} fade-up-section`}>
+            {/* Pharma & Healthcare */}
+            <div className={styles.applicationCard}>
+              <div className={styles.applicationImage}>
+                <img src="https://images.unsplash.com/photo-1583324113626-70df0f4deaab?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Pharma & Healthcare" />
+                <div className={styles.applicationIconWrapper}>
+                  <Activity size={28} />
+                </div>
+              </div>
+              <div className={styles.applicationContent}>
+                <h3>Pharma &<br />Healthcare</h3>
+                <p>Strict hygiene-grade actuators and precision dosing controls for medical equipment and robotics.</p>
+              </div>
             </div>
-            <div className={styles.industryCard}>
-              <Settings2 size={56} className={styles.industryIcon} />
-              <h3>Parking Systems</h3>
-              <p>Multi-level holding mechanisms</p>
+
+            {/* Automation & Sorting */}
+            <div className={styles.applicationCard}>
+              <div className={styles.applicationImage}>
+                <img src="https://images.unsplash.com/photo-1565439390145-236b2d29497e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Industrial Automation" />
+                <div className={styles.applicationIconWrapper}>
+                  <Factory size={28} />
+                </div>
+              </div>
+              <div className={styles.applicationContent}>
+                <h3>Industrial<br />Automation</h3>
+                <p>High-speed clamping, dispensing, and sorting mechanisms built for continuous manufacturing flow.</p>
+              </div>
             </div>
-            <div className={styles.industryCard}>
-              <BookOpen size={56} className={styles.industryIcon} />
-              <h3>Pharma Equipment</h3>
-              <p>Strict hygiene grade actuators</p>
+
+            {/* EV & Powertrain */}
+            <div className={styles.applicationCard}>
+              <div className={styles.applicationImage}>
+                <img src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Electric Vehicles" />
+                <div className={styles.applicationIconWrapper}>
+                  <Battery size={28} />
+                </div>
+              </div>
+              <div className={styles.applicationContent}>
+                <h3>Electric<br />Vehicles</h3>
+                <p>Advanced powertrains, thermal management actuation, and energy retention systems for mobility.</p>
+              </div>
             </div>
-            <div className={styles.industryCard}>
-              <Cpu size={56} className={styles.industryIcon} />
-              <h3>Electric Vehicles</h3>
-              <p>Advanced Powertrain systems</p>
+
+            {/* Multi-Level Parking */}
+            <div className={styles.applicationCard}>
+              <div className={styles.applicationImage}>
+                <img src="https://images.unsplash.com/photo-1574343831871-384358a91c13?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Multi-Level Parking" />
+                <div className={styles.applicationIconWrapper}>
+                  <ShieldCheck size={28} />
+                </div>
+              </div>
+              <div className={styles.applicationContent}>
+                <h3>Multi-Level<br />Parking</h3>
+                <p>Fail-safe locking mechanisms and multi-level holding structures designed for extreme load bearing.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section >
+      <div className="section-divider"></div>
+
+      {/* 5. Innovation & Certifications Section */}
+      < section className="section bg-dark-refined" >
+        {/* Industrial Lab Background Overlay */}
+        <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, backgroundImage: 'url("https://images.unsplash.com/photo-1581092335397-9583eb92d232?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80")', backgroundSize: "cover", backgroundPosition: "center", opacity: 0.08, zIndex: 0, mixBlendMode: "luminosity" }}></div>
+        <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, background: "linear-gradient(90deg, var(--primary-color) 0%, transparent 100%)", zIndex: 1 }}></div>
+
+        <div className="faint-bg-text" style={{ bottom: "5%", left: "50%", transform: "translateX(-50%)", zIndex: 2 }}>TECHNOLOGY</div>
+        <div className="container" style={{ position: "relative", zIndex: 10 }}>
+          <div className="grid grid-2" style={{ alignItems: "center", gap: "4rem" }}>
+            <div className="fade-up-section">
+              <h2 className="section-title">Innovation & Certification</h2>
+              <p className="section-subtitle" style={{ marginBottom: "2rem" }}>
+                Pushing the boundaries of applied electromagnetics through rigorous R&D and strict compliance standards.
+              </p>
+              <ul className={styles.innovationList}>
+                <li>
+                  <div className={styles.innovationIcon}><Cpu size={24} className="text-accent" /></div>
+                  <div>
+                    <h4>Custom Electromagnetics</h4>
+                    <p>Designed-to-spec coil winding, force profiling, and integration support for specialized applications.</p>
+                  </div>
+                </li>
+                <li>
+                  <div className={styles.innovationIcon}><Settings2 size={24} className="text-accent" /></div>
+                  <div>
+                    <h4>Simulation-Based Design</h4>
+                    <p>Advanced FEA simulations to virtually prototype and optimize magnetic flux before manufacturing.</p>
+                  </div>
+                </li>
+                <li>
+                  <div className={styles.innovationIcon}><Award size={24} className="text-accent" /></div>
+                  <div>
+                    <h4>Patented Technologies</h4>
+                    <p>Proprietary structural innovations that radically reduce residual magnetism and improve holding forces.</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div className={`fade-up-section ${styles.certificationBox}`}>
+              <h3>Global Compliance Standards</h3>
+              <p>All parts undergo intensive cycle testing and environmental validation, ensuring absolute dependability across borders.</p>
+              <div className={styles.certGrid}>
+                <div className={styles.certBadge}>CE Marking</div>
+                <div className={styles.certBadge}>RoHS Compliant</div>
+                <div className={styles.certBadge}>ARAI Certified</div>
+                <div className={styles.certBadge}>ISO 9001:2015</div>
+              </div>
             </div>
           </div>
         </div>
-      </section>
+      </section >
+
+      {/* 6. Leadership / Founders Section */}
+      < section className="section bg-off-white" id="leadership" >
+        <div className="container">
+          <div className="fade-up-section text-center" style={{ maxWidth: "800px", margin: "0 auto 4rem auto" }}>
+            <h2 className="section-title">Research-Backed Leadership</h2>
+            <p className="section-subtitle center">
+              Our engineering direction is guided by decades of hands-on R&D, patent development, and industrial manufacturing expertise.
+            </p>
+          </div>
+
+          <div className={`grid grid-2 fade-up-section ${styles.foundersGrid}`}>
+            {/* Founder 1 */}
+            <div className={styles.founderCard}>
+              <div className={styles.founderHeader}>
+                <div className={styles.founderImagePlaceholder} style={{ backgroundImage: "url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80')" }}></div>
+                <div>
+                  <h3>Dr. Dhanashri Dhuri</h3>
+                  <span className={styles.founderRole}>Chief Operating Officer (COO)</span>
+                </div>
+              </div>
+              <ul className={styles.founderBullets}>
+                <li><CheckCircle2 size={18} className="text-accent" /> 15+ years experience in process industries & materials research</li>
+                <li><CheckCircle2 size={18} className="text-accent" /> Expertise in catalysis, nanomaterials, and electromagnetics</li>
+                <li><CheckCircle2 size={18} className="text-accent" /> Authored 40+ journal publications and multiple patents</li>
+              </ul>
+            </div>
+
+            {/* Founder 2 */}
+            <div className={styles.founderCard}>
+              <div className={styles.founderHeader}>
+                <div className={styles.founderImagePlaceholder} style={{ backgroundImage: "url('https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80')" }}></div>
+                <div>
+                  <h3>Dr. Krishnarao Dhuri</h3>
+                  <span className={styles.founderRole}>Chief Strategy & Marketing Officer</span>
+                </div>
+              </div>
+              <ul className={styles.founderBullets}>
+                <li><CheckCircle2 size={18} className="text-accent" /> 20+ years expertise in research & system-level engineering</li>
+                <li><CheckCircle2 size={18} className="text-accent" /> Expert in system-level dynamics, optimization, and data science</li>
+                <li><CheckCircle2 size={18} className="text-accent" /> Technology entrepreneur with multiple US patents</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section >
+      {/* 7. News / Updates Slider */}
+      < section className="section bg-soft-grey" >
+        <div className="container">
+          <div className="fade-up-section text-center" style={{ maxWidth: "800px", margin: "0 auto 4rem auto" }}>
+            <h2 className="section-title">Latest Updates</h2>
+          </div>
+          <div className={`${styles.newsSlider} fade-up-section`}>
+            <div className={styles.newsCard}>
+              <span className={styles.newsCategory}>Product Update</span>
+              <h3>New Multi-Pole Holding Magnets</h3>
+              <p>We've expanded our robust holding magnet line to include multi-pole configurations for complex robotic grippers.</p>
+            </div>
+            <div className={styles.newsCard}>
+              <span className={styles.newsCategory}>Certification</span>
+              <h3>ISO 9001:2015 Recertification</h3>
+              <p>Magnastride has successfully completed our annual audit, proving our unyielding commitment to manufacturing excellence.</p>
+            </div>
+            <div className={styles.newsCard}>
+              <span className={styles.newsCategory}>Industry News</span>
+              <h3>Exhibiting at AutoExpo 2027</h3>
+              <p>Join us this February to witness our latest generation of EV powertrain actuators live in action.</p>
+            </div>
+          </div>
+        </div>
+      </section >
+      <div className="section-divider"></div>
 
       {/* Why Choose Us & Contact Section */}
-      <section id="contact" className="section-alt">
+      < section id="contact" className="section-alt" >
         <div className="container">
           <div className={styles.contactGrid}>
             <div className="fade-up-section">
@@ -476,67 +662,34 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="fade-up-section">
-              <div className={styles.contactForm}>
-                <h2 className="text-primary" style={{ marginBottom: "2rem" }}>Request Engineering Quote</h2>
-                <form>
-                  <div className={styles.formGroup}>
-                    <label>Company Name</label>
-                    <input type="text" className={styles.formControl} placeholder="Enter your registered company name" required />
-                  </div>
-                  <div className={styles.formGroup}>
-                    <label>Contact Person</label>
-                    <input type="text" className={styles.formControl} placeholder="Enter full name" required />
-                  </div>
-                  <div className={styles.formRow}>
-                    <div className={styles.formGroup} style={{ flex: 1 }}>
-                      <label>Business Email</label>
-                      <input type="email" className={styles.formControl} placeholder="Email address" required />
-                    </div>
-                    <div className={styles.formGroup} style={{ flex: 1 }}>
-                      <label>Contact Number</label>
-                      <input type="tel" className={styles.formControl} placeholder="Phone number" required />
-                    </div>
-                  </div>
-                  <div className={styles.formGroup}>
-                    <label>Product Domain of Interest</label>
-                    <select className={styles.formControl} required>
-                      <option value="">Select a product domain...</option>
-                      <option value="solenoids">Linear Solenoids</option>
-                      <option value="holding-magnets">Holding Magnets</option>
-                      <option value="rotary-actuators">Rotary Actuators</option>
-                      <option value="voice-coil">Voice Coil Systems</option>
-                      <option value="bldc">BLDC Motors</option>
-                      <option value="battery">Li-Ion Battery Packs</option>
-                      <option value="other">Custom Rapid Prototyping</option>
-                    </select>
-                  </div>
-                  <div className={styles.formGroup}>
-                    <label>Technical Application Details</label>
-                    <textarea className={styles.formControl} placeholder="Please briefly describe your application, necessary cycle load, and environmental requirements..." required></textarea>
-                  </div>
-                  <button type="submit" className="btn btn-primary" style={{ width: "100%", marginTop: "1rem" }}>
-                    <Mail size={18} style={{ marginRight: '10px' }} /> Submit Engineering Inquiry
-                  </button>
-                </form>
+            <div className="fade-up-section" style={{ position: "sticky", top: "120px" }}>
+              <div className={styles.ctaGrid}>
+                <h2 className="section-title" style={{ marginBottom: "2rem", fontSize: "2rem" }}>Engage With Engineering</h2>
+                <div className={styles.ctaCards}>
+                  <Link href="/brochure" className={styles.actionCard}>
+                    <Download size={24} className="text-accent" />
+                    <h4>Download Brochure</h4>
+                    <p>Get full company overview & capabilities.</p>
+                  </Link>
+                  <Link href="/datasheet" className={styles.actionCard}>
+                    <BookOpen size={24} className="text-accent" />
+                    <h4>Request Datasheet</h4>
+                    <p>Detailed tech specs on specific product lines.</p>
+                  </Link>
+                  <Link href="/contact" className={styles.actionCard}>
+                    <Phone size={24} className="text-accent" />
+                    <h4>Speak to Engineering</h4>
+                    <p>Direct technical consultation scheduling.</p>
+                  </Link>
+                  <Link href="/custom-solution" className={styles.actionCard}>
+                    <Settings size={24} className="text-accent" />
+                    <h4>Get Custom Solution</h4>
+                    <p>Initiate prototyping or co-development.</p>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Map Section */}
-      <section style={{ backgroundColor: "#eaeaea" }}>
-        <div className={styles.mapContainer}>
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d121059.04360431307!2d73.73845014389146!3d18.6297805908323!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2b82ccce44f47%3A0x53612d1c1fd33100!2sMIDC%2C%20Chinchwad%2C%20Pimpri-Chinchwad%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1715000000000!5m2!1sen!2sin"
-            width="100%"
-            height="100%"
-            style={{ border: 0, display: "block", filter: "grayscale(80%) contrast(1.2)" }}
-            allowFullScreen={false}
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade">
-          </iframe>
         </div>
       </section>
 

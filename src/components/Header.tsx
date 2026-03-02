@@ -49,7 +49,7 @@ export default function Header() {
                     <Link href="/" className={`nav-link ${isActive('/') ? 'active' : ''}`} onClick={() => setIsOpen(false)}>Home</Link>
                     <Link href="/about" className="nav-link" onClick={() => setIsOpen(false)}>About</Link>
                     <Link href="/products" className={`nav-link ${isActive('/products') ? 'active' : ''}`} onClick={() => setIsOpen(false)}>Products</Link>
-                    <Link href="/industries" className="nav-link" onClick={() => setIsOpen(false)}>Industries</Link>
+                    <Link href="/#applications" className="nav-link" onClick={() => setIsOpen(false)}>Industries</Link>
                     <Link href="/contact" className="nav-link" onClick={() => setIsOpen(false)}>Contact</Link>
                     <Link href="/contact" className="btn btn-primary" onClick={() => setIsOpen(false)}>
                         Request a Quote

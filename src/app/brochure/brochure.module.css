@@ -1,0 +1,61 @@
+.headerSection {
+    background-color: var(--primary-color);
+    padding: 10rem 0 6rem;
+}
+
+.backLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.backLink:hover {
+    color: #fff;
+}
+
+.contentCard {
+    background: #ffffff;
+    max-width: 800px;
+    margin: -4rem auto 0 auto;
+    padding: 4rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--support-color);
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+.iconCircle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: var(--bg-soft-grey);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 2rem auto;
+    border: 2px dashed var(--support-color);
+}
+
+.contentCard h2 {
+    color: var(--primary-color);
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.contentCard p {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+}
+
+.actionContainer {
+    border-top: 1px solid var(--support-color);
+    padding-top: 2rem;
+}
