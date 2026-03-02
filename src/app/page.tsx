@@ -694,12 +694,6 @@ export default function Home() {
                 </div>
               </div>
             </div>
-
-            <div className={`${styles.valueVisual} value-visual-anim`}>
-              <img src="https://images.unsplash.com/photo-1537462715879-360eeb61a0ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Precision Engineering Component" loading="lazy" />
-              <div className={styles.visualOverlay}></div>
-              <div className={styles.visualBlueprint}></div>
-            </div>
           </div>
         </div>
       </section>

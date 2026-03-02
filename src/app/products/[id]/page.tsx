@@ -3,7 +3,7 @@
 import { Download, Mail, CheckCircle2, Factory, Zap, BarChart3 } from "lucide-react";
 import Link from "next/link";
 import styles from "./product.module.css";
-import { use, useRef } from "react";
+import { use, useRef, Suspense } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
@@ -149,8 +149,10 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
 
                             <div className="content-section" style={{ marginTop: '2.5rem', marginBottom: '2.5rem' }}>
                                 <h3 style={{ fontSize: "1.5rem", marginBottom: "1rem" }}>Interactive Component Architecture</h3>
-                                <div style={{ backgroundColor: 'var(--bg-off-white)', borderRadius: '8px', overflow: 'hidden', border: '1px solid rgba(15, 30, 51, 0.1)' }}>
-                                    <ExplodedMotorScene />
+                                <div style={{ backgroundColor: 'var(--bg-off-white)', borderRadius: '8px', overflow: 'hidden', border: '1px solid rgba(15, 30, 51, 0.1)', minHeight: '500px' }}>
+                                    <Suspense fallback={<div style={{ height: '500px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Loading 3D Engine...</div>}>
+                                        <ExplodedMotorScene />
+                                    </Suspense>
                                 </div>
                             </div>
 
@@ -195,7 +197,9 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                                         <BarChart3 className="text-accent" size={20} />
                                         <h4 style={{ margin: 0, color: "var(--primary-color)" }}>Performance Metrics</h4>
                                     </div>
-                                    <PerformanceGaugeScene metrics={product.performance} />
+                                    <Suspense fallback={<div>Calculating performance...</div>}>
+                                        <PerformanceGaugeScene metrics={product.performance} />
+                                    </Suspense>
                                 </div>
                             </div>
 
