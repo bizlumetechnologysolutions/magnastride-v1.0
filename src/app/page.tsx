@@ -125,6 +125,35 @@ export default function Home() {
           }
         );
       });
+
+      // Why Choose Us Section Animations
+      gsap.fromTo(".value-card-anim",
+        { x: -30, opacity: 0 },
+        {
+          scrollTrigger: {
+            trigger: "#contact",
+            start: "top 70%",
+          },
+          x: 0,
+          opacity: 1,
+          stagger: 0.15,
+          duration: 0.8,
+          ease: "power2.out"
+        }
+      );
+
+      gsap.fromTo(".value-visual-anim",
+        { opacity: 0 },
+        {
+          scrollTrigger: {
+            trigger: "#contact",
+            start: "top 70%",
+          },
+          opacity: 1,
+          duration: 1.2,
+          ease: "power2.out"
+        }
+      );
     });
 
     mm.add("(max-width: 767px)", () => {
@@ -622,38 +651,42 @@ export default function Home() {
       </section >
       <div className="section-divider"></div>
 
-      {/* Why Choose Us & Contact Section */}
-      < section id="contact" className="section-alt" >
+      {/* Why Choose Us Section */}
+      <section id="why-magnastride" className={`section ${styles.valueSection}`}>
         <div className="container">
-          <div className={styles.contactGrid}>
-            <div className="fade-up-section">
-              <h2 className="section-title">Why Choose Magnastride</h2>
-              <p className="section-subtitle">Delivering precision, steadfast reliability, and uncompromised innovation to global OEMs.</p>
+          <div className={`${styles.titleBlock} fade-up-section`}>
+            <h2 className="section-title">Why Magnastride</h2>
+            <p className="section-subtitle">Delivering precision, steadfast reliability, and uncompromised innovation to global OEMs.</p>
+          </div>
 
-              <div className={styles.valueBlocks}>
-                <div className={styles.valueBlock}>
-                  <Zap size={28} style={{ color: "var(--accent-color)", flexShrink: 0 }} />
+          <div className={styles.valueGrid}>
+            <div className={styles.valueRow}>
+              <div className={styles.valueBlocksInner}>
+                <div className={`${styles.valueBlock} value-card-anim`}>
+                  <Zap size={32} style={{ color: "var(--accent-color)", flexShrink: 0 }} />
                   <div>
                     <h4>High Efficiency Designs</h4>
                     <p>Optimized magnetic circuits providing maximum force output with minimal residual power consumption.</p>
                   </div>
                 </div>
-                <div className={styles.valueBlock}>
-                  <Cpu size={28} style={{ color: "var(--accent-color)", flexShrink: 0 }} />
+                <div className={`${styles.valueBlock} value-card-anim`}>
+                  <Cpu size={32} style={{ color: "var(--accent-color)", flexShrink: 0 }} />
                   <div>
                     <h4>Custom Engineering Support</h4>
                     <p>Comprehensive end-to-end co-development from initial prototyping strictly to mass manufacturing precision.</p>
                   </div>
                 </div>
-                <div className={styles.valueBlock}>
-                  <ShieldCheck size={28} style={{ color: "var(--accent-color)", flexShrink: 0 }} />
+              </div>
+              <div className={styles.valueBlocksInner}>
+                <div className={`${styles.valueBlock} value-card-anim`}>
+                  <ShieldCheck size={32} style={{ color: "var(--accent-color)", flexShrink: 0 }} />
                   <div>
                     <h4>Robust Voltage Protection</h4>
                     <p>Integrated transient voltage suppression for incredibly robust and continuous industrial environment runs.</p>
                   </div>
                 </div>
-                <div className={styles.valueBlock}>
-                  <Activity size={28} style={{ color: "var(--accent-color)", flexShrink: 0 }} />
+                <div className={`${styles.valueBlock} value-card-anim`}>
+                  <Activity size={32} style={{ color: "var(--accent-color)", flexShrink: 0 }} />
                   <div>
                     <h4>Long Life Cycle Validation</h4>
                     <p>Rigorously tested for millions of continuous cycles under intensive, variable industrial operating conditions.</p>
@@ -661,6 +694,23 @@ export default function Home() {
                 </div>
               </div>
             </div>
+
+            <div className={`${styles.valueVisual} value-visual-anim`}>
+              <img src="https://images.unsplash.com/photo-1537462715879-360eeb61a0ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Precision Engineering Component" loading="lazy" />
+              <div className={styles.visualOverlay}></div>
+              <div className={styles.visualBlueprint}></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="section-divider"></div>
+
+      {/* Contact Section */}
+      < section id="contact" className="section-alt" >
+        <div className="container">
+          <div className={styles.contactGrid}>
+
 
             <div className="fade-up-section" style={{ position: "sticky", top: "120px" }}>
               <div className={styles.ctaGrid}>

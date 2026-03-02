@@ -625,9 +625,61 @@
 }
 
 /* Value Blocks / Trust section */
-.valueBlocks {
+.valueSection {
+  background: radial-gradient(circle at top right, rgba(176, 190, 197, 0.1) 0%, transparent 50%),
+    linear-gradient(180deg, var(--bg-off-white) 0%, #f0f3f5 100%);
+  position: relative;
+}
+
+.valueSection::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(176, 190, 197, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(176, 190, 197, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.titleBlock {
+  margin-bottom: 3.5rem;
+}
+
+.titleBlock h2 {
+  font-size: 3.5rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.valueGrid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 3rem;
+  align-items: flex-start;
+}
+
+.valueVisual {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/5;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  border: 1px solid rgba(15, 30, 51, 0.1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+}
+
+.valueRow {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.valueBlocksInner {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem;
 }
 
@@ -637,15 +689,45 @@
   gap: 1.5rem;
   padding: 2rem;
   background: #ffffff;
-  border: 1px solid var(--support-color);
+  border: 1px solid rgba(176, 190, 197, 0.2);
+  border-left: 3px solid var(--accent-color);
   border-radius: var(--border-radius);
-  transition: var(--transition);
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 4px 20px rgba(15, 30, 51, 0.02);
+  height: 100%;
 }
 
 .valueBlock:hover {
-  transform: none;
-  border-left: 4px solid var(--primary-color);
-  background-color: var(--bg-off-white);
+  transform: translateX(10px);
+  box-shadow: 0 10px 30px rgba(15, 30, 51, 0.06);
+  border-color: var(--accent-color);
+}
+
+
+
+.valueVisual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: desaturate(1) brightness(0.7) contrast(1.1);
+}
+
+.visualOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(15, 30, 51, 0.6) 0%, rgba(15, 30, 51, 0.2) 100%);
+  mix-blend-mode: multiply;
+}
+
+.visualBlueprint {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 30px 30px;
+  pointer-events: none;
+  opacity: 0.3;
 }
 
 .valueBlock h4 {
@@ -661,10 +743,10 @@
 
 /* Contact Section */
 .contactGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
   gap: 4rem;
-  align-items: start;
 }
 
 .contactForm {
@@ -1135,6 +1217,24 @@ textarea.formControl {
   color: var(--text-muted);
   font-size: 0.95rem;
   margin: 0;
+}
+
+@media (max-width: 1024px) {
+  .valueGrid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .valueVisual {
+    aspect-ratio: 16/9;
+    order: -1;
+  }
+}
+
+@media (max-width: 600px) {
+  .valueBlocksInner {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 600px) {
